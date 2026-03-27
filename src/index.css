@@ -66,14 +66,14 @@ body {
   box-sizing: border-box;
 }
 
-h1,
-h2 {
+header,
+div {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
 }
 
-h1 {
+header {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
@@ -82,7 +82,7 @@ h1 {
     margin: 20px 0;
   }
 }
-h2 {
+div {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
