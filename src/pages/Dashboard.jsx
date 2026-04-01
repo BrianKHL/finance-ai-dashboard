@@ -1,6 +1,7 @@
 import Header from "../components/Header/Header";
 import UserInfo from "../components/UserInfo/UserInfo";
 import SummarySection from "../components/SummarySection/SummarySection";
+import Diagram from "../components/Diagram/Diagram";
 
 function Dashboard() {
   return (
@@ -8,6 +9,7 @@ function Dashboard() {
       <Header />
       <UserInfo />
       <SummarySection />
+      <Diagram />
     </div>
   );
 }
