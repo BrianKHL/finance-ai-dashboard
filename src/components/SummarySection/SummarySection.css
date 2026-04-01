@@ -1,0 +1,13 @@
+.summary-blocks {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.summary-blocks h3 {
+  color: gray;
+}
+
+.summary-blocks p {
+  color: black;
+}
