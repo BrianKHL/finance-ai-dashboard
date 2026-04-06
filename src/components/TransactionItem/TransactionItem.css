@@ -1,0 +1,38 @@
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.left {
+  display: flex;
+  gap: 10px;
+}
+
+.category {
+  color: gray;
+  font-size: 14px;
+}
+
+.date {
+  color: gray;
+  font-size: 14px;
+}
+
+.name {
+  font-weight: 500;
+  color: black;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.amount.income {
+  color: green;
+}
+
+.amount.expense {
+  color: red;
+}
