@@ -3,6 +3,7 @@ import UserInfo from "../components/UserInfo/UserInfo";
 import SummarySection from "../components/SummarySection/SummarySection";
 import Diagram from "../components/Diagram/Diagram";
 import Transactions from "../components/Transaction/Transactions";
+import BudgetStatus from "../components/BudgetStatus/BudgetStatus";
 
 function Dashboard() {
   return (
@@ -12,6 +13,7 @@ function Dashboard() {
       <SummarySection />
       <Diagram />
       <Transactions />
+      <BudgetStatus />
     </div>
   );
 }

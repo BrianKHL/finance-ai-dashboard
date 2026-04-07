@@ -1,0 +1,47 @@
+.budget-status {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.budget-status p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Status colors */
+.status.great {
+  color: green;
+  font-weight: bold;
+}
+
+.status.good {
+  color: orange;
+  font-weight: bold;
+}
+
+.status.warning {
+  color: red;
+  font-weight: bold;
+}
+
+/* Button */
+.ai-button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ai-button:hover {
+  background-color: #2563eb;
+}
