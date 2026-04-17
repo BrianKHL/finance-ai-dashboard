@@ -1,11 +1,18 @@
 import "./BudgetStatus.css";
 
-function BudgetStatus() {
-  // Placeholder values (later from state/API)
-  const budget = 1000;
-  const expense = 600;
+function BudgetStatus({transactions}) {
+  const income = transactions
+    .filter((t) => t.amount > 0)
+    .reduce((sum, t) => sum + t.amount, 0);
 
-  const remaining = budget - expense; 
+  const expense = transactions
+    .filter((t) => t.amount < 0)
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  // budget is based on income (Pocket money, salary, etc.)
+  const budget = income; 
+
+  const remaining = budget + expense; 
   //ratio will be used to determine the status
   //and AI will give the insights based on this ratio (not fixed)
   const ratio = remaining / budget;

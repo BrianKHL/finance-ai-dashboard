@@ -1,7 +1,7 @@
 import "./Transactions.css";
 import TransactionItem from "../TransactionItem/TransactionItem";
 
-function Transactions() {
+function Transactions({ transactions }) {
     return (
         <section className="transactions">
             <h2>Recent Transactions</h2>
