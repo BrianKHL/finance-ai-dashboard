@@ -1,16 +1,85 @@
-# React + Vite
+# Financial Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend is built with React + Vite, and the backend uses Spring Boot + H2.
 
-Currently, two official plugins are available:
+## Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+The frontend expects the backend API at `http://localhost:8080/api`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Backend
 
-## Expanding the ESLint configuration
+Run the Spring Boot server with:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+H2 console is available at `http://localhost:8080/h2-console`.
+
+Use these values in the H2 console:
+
+```text
+JDBC URL: jdbc:h2:mem:financial_dashboard
+User Name: sa
+Password: (leave blank)
+```
+
+## Transactions API
+
+Available endpoints:
+
+- `GET /api/transactions`
+- `POST /api/transactions`
+- `PUT /api/transactions/{id}`
+- `DELETE /api/transactions/{id}`
+- `GET /api/dashboard/summary`
+- `GET /api/dashboard/chart`
+
+Sample transaction shape:
+
+```json
+{
+  "id": 1,
+  "category": "Dining",
+  "name": "Chick-fil-A",
+  "amount": -10.25,
+  "date": "2023-01-01"
+}
+```
+
+Dashboard summary response:
+
+```json
+{
+  "totalIncome": 3850.0,
+  "totalExpense": 215.74,
+  "netProfit": 3634.26
+}
+```
+
+Dashboard chart response:
+
+```json
+{
+  "income": 3850.0,
+  "expense": 215.74,
+  "categories": [
+    { "category": "Utilities", "amount": 120.5, "percentage": 55.9 },
+    { "category": "Shopping", "amount": 84.99, "percentage": 39.4 },
+    { "category": "Dining", "amount": 10.25, "percentage": 4.8 }
+  ]
+}
+```
+
+All list and dashboard endpoints also support optional `from` and `to` query params, for example:
+
+- `GET /api/transactions?from=2023-01-01&to=2023-01-31`
+- `GET /api/dashboard/summary?from=2023-01-01&to=2023-01-31`
+
+On first startup, the backend inserts sample income and expense transactions if the table is empty.
