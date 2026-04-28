@@ -13,8 +13,6 @@ The frontend expects the backend API at `http://localhost:8080/api`.
 
 ## Backend
 
-Backend files live under [`backend`](/Users/jaehoonchoi/Desktop/proj/backend).
-
 Run the Spring Boot server with:
 
 ```bash
@@ -59,7 +57,7 @@ Dashboard summary response:
 
 ```json
 {
-  "totalIncome": 3850.00,
+  "totalIncome": 3850.0,
   "totalExpense": 215.74,
   "netProfit": 3634.26
 }
@@ -69,10 +67,10 @@ Dashboard chart response:
 
 ```json
 {
-  "income": 3850.00,
+  "income": 3850.0,
   "expense": 215.74,
   "categories": [
-    { "category": "Utilities", "amount": 120.50, "percentage": 55.9 },
+    { "category": "Utilities", "amount": 120.5, "percentage": 55.9 },
     { "category": "Shopping", "amount": 84.99, "percentage": 39.4 },
     { "category": "Dining", "amount": 10.25, "percentage": 4.8 }
   ]
