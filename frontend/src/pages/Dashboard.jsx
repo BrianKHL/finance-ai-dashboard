@@ -30,10 +30,10 @@ function Dashboard() {
       <Header />
       {error ? <p>{error}</p> : null}
       <UserInfo />
-      <SummarySection transactions={transactions}/>
-      <Diagram />
-      <Transactions transactions={transactions}/>
-      <BudgetStatus transactions={transactions}/>
+      <SummarySection transactions={transactions} />
+      <Diagram transactions={transactions} />
+      <Transactions transactions={transactions} />
+      <BudgetStatus transactions={transactions} />
     </div>
   );
 }
