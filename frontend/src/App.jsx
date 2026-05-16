@@ -91,11 +91,83 @@
 
 // export default App;
 
+import { useEffect, useState } from "react";
 import Dashboard from "./pages/Dashboard";
+import AuthPage from "./pages/AuthPage";
 import "./App.css";
+import {
+  clearToken,
+  fetchCurrentUser,
+  getToken,
+  login,
+  setToken,
+  signup,
+} from "./services/api";
 
 function App() {
-  return <Dashboard />;
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [authMode, setAuthMode] = useState("login");
+  const [authError, setAuthError] = useState("");
+
+  useEffect(() => {
+    const restoreSession = async () => {
+      if (!getToken()) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const user = await fetchCurrentUser();
+        setCurrentUser(user);
+      } catch (error) {
+        clearToken();
+        setAuthError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    restoreSession();
+  }, []);
+
+  const handleAuthSubmit = async (formValues) => {
+    setAuthError("");
+
+    try {
+      const response = authMode === "login"
+        ? await login(formValues)
+        : await signup(formValues);
+
+      setToken(response.token);
+      setCurrentUser(response.user);
+    } catch (error) {
+      setAuthError(error.message);
+    }
+  };
+
+  const handleLogout = () => {
+    clearToken();
+    setCurrentUser(null);
+    setAuthMode("login");
+  };
+
+  if (loading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (!currentUser) {
+    return (
+      <AuthPage
+        mode={authMode}
+        error={authError}
+        onSubmit={handleAuthSubmit}
+        onModeChange={setAuthMode}
+      />
+    );
+  }
+
+  return <Dashboard currentUser={currentUser} onLogout={handleLogout} />;
 }
 
 export default App;

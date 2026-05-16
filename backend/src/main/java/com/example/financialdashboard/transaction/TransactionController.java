@@ -1,5 +1,6 @@
 package com.example.financialdashboard.transaction;
 
+import com.example.financialdashboard.user.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.LocalDate;
@@ -28,26 +30,37 @@ public class TransactionController {
 
     @GetMapping
     public List<Transaction> getTransactions(
+            @RequestAttribute("authenticatedUser") User user,
             @RequestParam(required = false) LocalDate from,
             @RequestParam(required = false) LocalDate to
     ) {
-        return transactionService.getTransactions(from, to);
+        return transactionService.getTransactions(user, from, to);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction createTransaction(@Valid @RequestBody TransactionRequest request) {
-        return transactionService.createTransaction(request);
+    public Transaction createTransaction(
+            @RequestAttribute("authenticatedUser") User user,
+            @Valid @RequestBody TransactionRequest request
+    ) {
+        return transactionService.createTransaction(user, request);
     }
 
     @PutMapping("/{id}")
-    public Transaction updateTransaction(@PathVariable Long id, @Valid @RequestBody TransactionRequest request) {
-        return transactionService.updateTransaction(id, request);
+    public Transaction updateTransaction(
+            @RequestAttribute("authenticatedUser") User user,
+            @PathVariable Long id,
+            @Valid @RequestBody TransactionRequest request
+    ) {
+        return transactionService.updateTransaction(user, id, request);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTransaction(@PathVariable Long id) {
-        transactionService.deleteTransaction(id);
+    public void deleteTransaction(
+            @RequestAttribute("authenticatedUser") User user,
+            @PathVariable Long id
+    ) {
+        transactionService.deleteTransaction(user, id);
     }
 }

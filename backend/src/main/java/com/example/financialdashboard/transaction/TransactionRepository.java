@@ -1,5 +1,6 @@
 package com.example.financialdashboard.transaction;
 
+import com.example.financialdashboard.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -7,7 +8,9 @@ import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    List<Transaction> findAllByOrderByDateDescIdDesc();
+    long countByUser(User user);
 
-    List<Transaction> findAllByDateBetweenOrderByDateDescIdDesc(LocalDate from, LocalDate to);
+    List<Transaction> findAllByUserOrderByDateDescIdDesc(User user);
+
+    List<Transaction> findAllByUserAndDateBetweenOrderByDateDescIdDesc(User user, LocalDate from, LocalDate to);
 }
