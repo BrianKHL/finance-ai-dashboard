@@ -5,9 +5,10 @@ import SummarySection from "../components/SummarySection/SummarySection";
 import Diagram from "../components/Diagram/Diagram";
 import Transactions from "../components/Transaction/Transactions";
 import BudgetStatus from "../components/BudgetStatus/BudgetStatus";
+import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary";
 import { fetchTransactions } from "../services/api";
 
-function Dashboard() {
+function Dashboard({ currentUser, onLogout }) {
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState("");
 
@@ -17,7 +18,7 @@ function Dashboard() {
         const data = await fetchTransactions();
         setTransactions(data);
       } catch (err) {
-        setError("Failed to load transactions.");
+        setError(err.message || "Failed to load transactions.");
         console.error(err);
       }
     };
@@ -27,13 +28,21 @@ function Dashboard() {
 
   return (
     <div className="container">
-      <Header />
+      <Header onLogout={onLogout} />
       {error ? <p>{error}</p> : null}
-      <UserInfo />
-      <SummarySection transactions={transactions} />
-      <Diagram transactions={transactions} />
-      <Transactions transactions={transactions} />
-      <BudgetStatus transactions={transactions} />
+      <UserInfo currentUser={currentUser} />
+      <ErrorBoundary>
+        <SummarySection transactions={transactions} />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Diagram transactions={transactions} />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Transactions transactions={transactions} />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <BudgetStatus transactions={transactions} />
+      </ErrorBoundary>
     </div>
   );
 }

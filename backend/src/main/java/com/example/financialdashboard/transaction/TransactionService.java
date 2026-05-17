@@ -1,5 +1,6 @@
 package com.example.financialdashboard.transaction;
 
+import com.example.financialdashboard.user.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,28 +15,31 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public List<Transaction> getTransactions(LocalDate from, LocalDate to) {
+    public List<Transaction> getTransactions(User user, LocalDate from, LocalDate to) {
         if (from != null && to != null) {
-            return transactionRepository.findAllByDateBetweenOrderByDateDescIdDesc(from, to);
+            return transactionRepository.findAllByUserAndDateBetweenOrderByDateDescIdDesc(user, from, to);
         }
 
-        return transactionRepository.findAllByOrderByDateDescIdDesc();
+        return transactionRepository.findAllByUserOrderByDateDescIdDesc(user);
     }
 
-    public Transaction createTransaction(TransactionRequest request) {
+    public Transaction createTransaction(User user, TransactionRequest request) {
         Transaction transaction = new Transaction(
                 request.category(),
                 request.date(),
                 request.name(),
-                request.amount()
+                request.amount(),
+                user
         );
 
         return transactionRepository.save(transaction);
     }
 
-    public Transaction updateTransaction(Long id, TransactionRequest request) {
+    public Transaction updateTransaction(User user, Long id, TransactionRequest request) {
         Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new TransactionNotFoundException(id));
+
+        verifyOwnership(user, transaction);
 
         transaction.setCategory(request.category());
         transaction.setName(request.name());
@@ -45,10 +49,18 @@ public class TransactionService {
         return transactionRepository.save(transaction);
     }
 
-    public void deleteTransaction(Long id) {
+    public void deleteTransaction(User user, Long id) {
         Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new TransactionNotFoundException(id));
 
+        verifyOwnership(user, transaction);
+
         transactionRepository.delete(transaction);
+    }
+
+    private void verifyOwnership(User user, Transaction transaction) {
+        if (!transaction.getUser().getId().equals(user.getId())) {
+            throw new TransactionNotFoundException(transaction.getId());
+        }
     }
 }

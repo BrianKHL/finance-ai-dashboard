@@ -1,5 +1,8 @@
 .header {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header h1 {
@@ -7,4 +10,14 @@
   font-weight: bold;
   margin: 3%;
   color: gray;
+}
+
+.logout-button {
+  margin-right: 3%;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
 }

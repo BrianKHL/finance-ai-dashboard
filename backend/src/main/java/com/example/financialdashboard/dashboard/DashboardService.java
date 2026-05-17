@@ -2,6 +2,7 @@ package com.example.financialdashboard.dashboard;
 
 import com.example.financialdashboard.transaction.Transaction;
 import com.example.financialdashboard.transaction.TransactionService;
+import com.example.financialdashboard.user.User;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,8 +23,8 @@ public class DashboardService {
         this.transactionService = transactionService;
     }
 
-    public DashboardSummaryResponse getSummary(LocalDate from, LocalDate to) {
-        List<Transaction> transactions = transactionService.getTransactions(from, to);
+    public DashboardSummaryResponse getSummary(User user, LocalDate from, LocalDate to) {
+        List<Transaction> transactions = transactionService.getTransactions(user, from, to);
 
         BigDecimal totalIncome = transactions.stream()
                 .map(Transaction::getAmount)
@@ -43,9 +44,9 @@ public class DashboardService {
         return new DashboardSummaryResponse(totalIncome, totalExpense, netProfit);
     }
 
-    public DashboardChartResponse getChart(LocalDate from, LocalDate to) {
-        List<Transaction> transactions = transactionService.getTransactions(from, to);
-        DashboardSummaryResponse summary = getSummary(from, to);
+    public DashboardChartResponse getChart(User user, LocalDate from, LocalDate to) {
+        List<Transaction> transactions = transactionService.getTransactions(user, from, to);
+        DashboardSummaryResponse summary = getSummary(user, from, to);
 
         BigDecimal totalExpense = summary.totalExpense();
 

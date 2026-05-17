@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./UserInfo.css";
 
-function UserInfo() {
+function UserInfo({ currentUser }) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function UserInfo() {
 
   return (
     <section className="user-info">
-      <div>ID: XXX</div>
+      <div>{currentUser?.name} ({currentUser?.email})</div>
       <div>{currentTime.toLocaleString()}</div>
     </section>
   );
