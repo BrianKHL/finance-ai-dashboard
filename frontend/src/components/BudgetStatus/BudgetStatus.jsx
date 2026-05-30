@@ -1,6 +1,13 @@
 import "./BudgetStatus.css";
+import { useState } from "react";
 
-function BudgetStatus({transactions}) {
+import AIInsightsModal from "./AIInsightsModal";
+
+function BudgetStatus({ transactions }) {
+
+  // Modal open/close state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const income = transactions
     .filter((t) => t.amount > 0)
     .reduce((sum, t) => sum + t.amount, 0);
@@ -9,16 +16,16 @@ function BudgetStatus({transactions}) {
     .filter((t) => t.amount < 0)
     .reduce((sum, t) => sum + t.amount, 0);
 
-  // budget is based on income (Pocket money, salary, etc.)
-  const budget = income; 
+  // Budget is based on income
+  const budget = income;
 
-  const remaining = budget + expense; 
-  //ratio will be used to determine the status
-  //and AI will give the insights based on this ratio (not fixed)
+  // Remaining money after expenses
+  const remaining = budget + expense;
+
+  // Ratio determines budget health
   const ratio = remaining / budget;
 
-  //It will affect the diagram and status text color
-  //Should add 0 later
+  // Status text
   let status = "";
 
   if (ratio >= 0.75) {
@@ -30,17 +37,30 @@ function BudgetStatus({transactions}) {
   }
 
   return (
+
     <section className="budget-status">
+
       <p>
-        Current budget status is:{" "}
+        Current budget status is{" "}
         <span className={`status ${status.toLowerCase()}`}>
           {status}
         </span>
       </p>
 
-      <button className="ai-button">
+      {/* AI Button */}
+      <button
+        className="ai-button"
+        onClick={() => setIsModalOpen(true)}
+      >
         Get AI Insights
       </button>
+
+      {/* AI Modal */}
+      <AIInsightsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+
     </section>
   );
 }
