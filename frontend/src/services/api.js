@@ -64,3 +64,13 @@ export const fetchTransactions = async () => {
 
   return parseResponse(response);
 };
+
+export const createTransaction = async (payload) => {
+  const response = await fetch(`${API_URL}/transactions`, {
+    method: "POST",
+    headers: buildHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  return parseResponse(response);
+};
