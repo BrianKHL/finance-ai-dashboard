@@ -1,10 +1,6 @@
 import "./AIInsightsModal.css";
 
-function AIInsightsModal({ isOpen, onClose }) {
-
-  const handleQuestionClick = (question) => {
-    alert(`AI Question Selected:\n\n${question}`);
-  };
+function AIInsightsModal({ isOpen, onClose, onQuestionClick, insight, loading, error }) {
 
   // If modal closed → render nothing
   if (!isOpen) return null;
@@ -34,7 +30,7 @@ function AIInsightsModal({ isOpen, onClose }) {
 
           <button
             onClick={() =>
-              handleQuestionClick(
+              onQuestionClick(
                 "Where am I spending the most money?"
               )
             }
@@ -44,7 +40,7 @@ function AIInsightsModal({ isOpen, onClose }) {
 
           <button
             onClick={() =>
-              handleQuestionClick(
+              onQuestionClick(
                 "What category should I reduce?"
               )
             }
@@ -54,7 +50,7 @@ function AIInsightsModal({ isOpen, onClose }) {
 
           <button
             onClick={() =>
-              handleQuestionClick(
+              onQuestionClick(
                 "Is my spending healthy?"
               )
             }
@@ -64,7 +60,7 @@ function AIInsightsModal({ isOpen, onClose }) {
 
           <button
             onClick={() =>
-              handleQuestionClick(
+              onQuestionClick(
                 "What spending habits do you notice?"
               )
             }
@@ -72,6 +68,15 @@ function AIInsightsModal({ isOpen, onClose }) {
             What spending habits do you notice?
           </button>
 
+        </div>
+
+        <div className="ai-response-box">
+          {loading ? <p>Loading insight...</p> : null}
+          {error ? <p className="ai-error">{error}</p> : null}
+          {!loading && !error && insight ? <p>{insight}</p> : null}
+          {!loading && !error && !insight ? (
+            <p>Select a question to get an AI response.</p>
+          ) : null}
         </div>
 
       </div>

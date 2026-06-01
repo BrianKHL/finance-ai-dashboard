@@ -2,11 +2,15 @@ import "./BudgetStatus.css";
 import { useState } from "react";
 
 import AIInsightsModal from "./AIInsightsModal";
+import { fetchAIInsight } from "../../services/api";
 
 function BudgetStatus({ transactions }) {
 
   // Modal open/close state
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [insight, setInsight] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const income = transactions
     .filter((t) => t.amount > 0)
@@ -36,6 +40,21 @@ function BudgetStatus({ transactions }) {
     status = "Warning";
   }
 
+  const handleQuestionClick = async (question) => {
+    setLoading(true);
+    setError("");
+    setInsight("");
+
+    try {
+      const data = await fetchAIInsight(question);
+      setInsight(data.answer);
+    } catch (requestError) {
+      setError(requestError.message || "Failed to get AI insight.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
 
     <section className="budget-status">
@@ -59,6 +78,10 @@ function BudgetStatus({ transactions }) {
       <AIInsightsModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onQuestionClick={handleQuestionClick}
+        insight={insight}
+        loading={loading}
+        error={error}
       />
 
     </section>
