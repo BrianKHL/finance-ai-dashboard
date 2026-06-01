@@ -74,3 +74,13 @@ export const createTransaction = async (payload) => {
 
   return parseResponse(response);
 };
+
+export const fetchAIInsight = async (question) => {
+  const response = await fetch(`${API_URL}/ai/insights`, {
+    method: "POST",
+    headers: buildHeaders(),
+    body: JSON.stringify({ question }),
+  });
+
+  return parseResponse(response);
+};
