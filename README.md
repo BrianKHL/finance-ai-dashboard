@@ -1,34 +1,246 @@
-# Financial Dashboard
+# Finance AI Dashboard
 
-Frontend is built with React + Vite, and the backend uses Spring Boot + H2.
+A full-stack personal finance dashboard that helps users track income and expenses, visualize spending patterns, and receive AI-powered financial insights based on transaction history.
 
-## Frontend
+---
+
+## Purpose
+
+The goal of this project is to help users manage their finances in a more intuitive and efficient way.
+
+Features include:
+
+* Transaction management (income and expenses)
+* Spending category visualization
+* Budget status monitoring
+* Financial summary dashboard
+* AI-powered spending analysis using Gemini AI
+
+---
+
+## Technologies Used
+
+### Frontend
+
+* React
+* JavaScript (ES6+)
+* Vite
+* CSS
+
+### Backend
+
+* Java
+* Spring Boot
+* Spring Data JPA
+* Spring WebClient
+
+### Database
+
+* MySQL
+
+### AI Integration
+
+* Google Gemini API
+
+### Development Tools
+
+* Git
+* GitHub
+* Postman
+
+---
+
+## Project Structure
+
+```text
+finance-ai-dashboard/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   └── App.jsx
+│   └── package.json
+│
+├── backend/
+│   ├── src/main/java/
+│   │   ├── transaction/
+│   │   ├── dashboard/
+│   │   ├── ai/
+│   │   └── config/
+│   └── pom.xml
+│
+└── README.md
+```
+
+### Architecture Overview
+
+```text
+React Frontend
+        │
+        ▼
+Spring Boot REST API
+        │
+ ┌──────┴──────┐
+ ▼             ▼
+MySQL      Gemini AI
+Database     API
+```
+
+---
+
+## How to Run the Project
+
+### Prerequisites
+
+Install:
+
+* Java 21+
+* Maven
+* Node.js
+* MySQL
+
+---
+
+### Start Backend Server
+
+Open Terminal #1:
 
 ```bash
+cd backend
+
+export GEMINI_API_KEY=YOUR_API_KEY
+
+mvn spring-boot:run
+```
+
+Expected output:
+
+```text
+Backend server ON (localhost:8080)
+Connected to MySQL
+API ready
+```
+
+---
+
+### Start Frontend Server
+
+Open Terminal #2 (New Terminal start needed):
+
+```bash
+cd frontend
+
 npm install
 npm run dev
 ```
 
-The frontend expects the backend API at `http://localhost:8080/api`.
-
-## Backend
-
-Run the Spring Boot server with:
-
-```bash
-cd backend
-mvn spring-boot:run
-```
-
-H2 console is available at `http://localhost:8080/h2-console`.
-
-Use these values in the H2 console:
+Expected output:
 
 ```text
-JDBC URL: jdbc:h2:mem:financial_dashboard
-User Name: sa
-Password: (leave blank)
+Frontend server ON
+http://localhost:5173
 ```
+
+Open:
+
+```text
+http://localhost:5173
+```
+
+in your browser.
+
+---
+
+## MySQL Setup (macOS)
+
+If MySQL is not installed:
+
+```bash
+brew install mysql
+```
+
+Start MySQL:
+
+```bash
+brew services start mysql
+```
+
+Login:
+
+```bash
+mysql -u root
+```
+
+Verify database:
+
+```sql
+SHOW DATABASES;
+USE finance_dashboard;
+SHOW TABLES;
+```
+
+---
+
+## Features
+
+### Transaction Management
+
+* Create transactions
+* Update transactions
+* Delete transactions
+* Store data in MySQL
+
+### Dashboard Analytics
+
+* Total Income
+* Total Expense
+* Net Profit
+
+### Spending Visualization
+
+* Expense categories
+* Category-based spending breakdown
+
+### AI Financial Insights
+
+Example questions:
+
+* Where am I spending the most money?
+* What category should I reduce?
+* Is my spending healthy?
+* What spending habits do you notice?
+
+The application analyzes transaction history and generates personalized recommendations using Google Gemini AI.
+
+---
+
+## Demo Video
+
+Demo Video:
+
+[YouTube Link Here] - Will update soon
+
+---
+
+## Feedback & Contact
+
+If you have any questions, feedback, or feature requests about this project, feel free to reach out.
+
+### Brian Lee
+
+* Email: briankhlee25@gmail.com
+* LinkedIn: https://www.linkedin.com/in/briankwanghaklee/
+
+### Jaehoon Choi
+
+* Email: JAEOHOON_EMAIL - Will update soon
+* LinkedIn: JAEOHOON_LINKEDIN - Will update soon
+
+### Issues
+
+For bugs, suggestions, or feature requests, please open an Issue in this GitHub repository.
+
 
 ## Transactions API
 
