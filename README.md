@@ -32,7 +32,6 @@ Features include:
 * Java
 * Spring Boot
 * Spring Data JPA
-* Spring WebClient
 
 ### Database
 
@@ -234,8 +233,7 @@ If you have any questions, feedback, or feature requests about this project, fee
 
 ### Jaehoon Choi
 
-* Email: JAEOHOON_EMAIL - Will update soon
-* LinkedIn: JAEOHOON_LINKEDIN - Will update soon
+[Github](https://github.com/hoons1130)
 
 ### Issues
 
