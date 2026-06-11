@@ -233,7 +233,7 @@ If you have any questions, feedback, or feature requests about this project, fee
 
 ### Jaehoon Choi
 
-[Github](https://github.com/hoons1130)
+* [Github](https://github.com/hoons1130)
 
 ### Issues
 
